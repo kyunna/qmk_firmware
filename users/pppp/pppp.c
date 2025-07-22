@@ -76,6 +76,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
+/*Customize TAPPING_TERM for specific keys. */
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MAC_CAPS:
+        case WIN_CAPS:
+            // CAPS position MT key: much shorter tapping term for quick Ctrl combos
+            return 100;
+
+        case SPC_FN:
+            // SPACE position LT key: slightly shorter tapping term for reliable tapping
+            return 150;
+
+        default:
+            // Default tapping term for all other keys
+            return TAPPING_TERM;
+    }
+}
+
 /* Defines combo keys (pressing two keys at once produces a third key). */
 const uint16_t PROGMEM df_combo[]  = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM jk_combo[]  = {KC_J, KC_K, COMBO_END};
